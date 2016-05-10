@@ -29,8 +29,6 @@ public class Network {
 		for (int i = 0; i < characters.size(); i++) {
 			inside.add(characters.get(i).getNumber());	
 		}
-		System.out.println(outside.size());
-
 	}
 
 	public void display(){
@@ -43,11 +41,14 @@ public class Network {
 			degree = degree/ (double)this.inside.size()*(double) i;
 			int x = circleCenterX + (int) (Math.cos( Math.toRadians( degree ) )*circleRadius);
 			int y = circleCenterY + (int) (Math.sin( Math.toRadians( degree ) )*circleRadius);
-
 			this.characters.get(this.inside.get(i)).setDimension(x , y);	
 			this.characters.get(this.inside.get(i)).display();
-		}
+		}		
+	}
+	public void moveToInside(int n){
+		outside.remove(n);
+	}
+	public void moveToOutside(int n){
 		
 	}
-	
 }

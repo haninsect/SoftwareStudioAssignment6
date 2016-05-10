@@ -33,11 +33,11 @@ public class MainApplet extends PApplet{
 	}
 
 	public void draw() {
-		this.clear();
-		background(200);
+		this.clear();		
+		this.background(200);		
+		this.fill(225);
 		ellipse(circleCenterX, circleCenterY, circleRadius, circleRadius);		
 		network.display();
-		
 		
 	}
 	
@@ -45,7 +45,12 @@ public class MainApplet extends PApplet{
 		for (int i = 0; i < this.characters.size(); i++) {	
 			if(this.characters.get(i).mousePressInside(mouseX, mouseY)) {
 				this.characters.get(i).setDragged(!this.characters.get(i).isdragged);
-				break;
+				if(this.characters.get(i).isdragged == false){ // Is realeased.
+					//Inside the cycle
+					if((mouseX-circleCenterX)*(mouseX-circleCenterX) + (mouseY-circleCenterY)*(mouseY-circleCenterY) <= circleRadius*circleRadius ){
+						
+					}
+				}
 			}			
 		}
 	}

@@ -19,7 +19,7 @@ public class Character {
 	int x;
 	int y;
 	boolean isdragged = false;
-	
+	int hexColor ;
 	
 	public Character(MainApplet parent, int n, int s, String name, String c){
 		this.number = n;
@@ -30,15 +30,21 @@ public class Character {
 		this.size = s;
 		this.parent = parent;
 		this.setDimension(defaultX, defaultY);
+		hexColor = Long.decode("0x"+this.color.substring(1)).intValue();
+		
 	}
 
-	public void display(){
+	public void display(){	
 		if(this.isDragged()){
+			this.parent.fill(hexColor);
 			parent.ellipse(parent.mouseX, parent.mouseY, Radius, Radius);
 			this.x = parent.mouseX;
 			this.y = parent.mouseY;
 		}
-		else parent.ellipse(x, y, Radius, Radius);
+		else {
+			this.parent.fill(hexColor);
+			parent.ellipse(x, y, Radius, Radius);
+		}
 	}
 	
 	
