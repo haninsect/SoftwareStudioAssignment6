@@ -12,6 +12,8 @@ import processing.core.PApplet;
 */
 public class Network {
 	private final static int defaultX = 50;
+	private final static int row = 4;
+	private final static int space = 30;
 	private final static int defaultY = 50;
 	private final static int circleRadius = 200, circleCenterX = 700, circleCenterY = 300;
 	private PApplet parent;
@@ -25,24 +27,27 @@ public class Network {
 		this.inside = new ArrayList<Integer>();
 		this.outside = new ArrayList<Integer>();
 		for (int i = 0; i < characters.size(); i++) {
-			inside.add(characters.get(i).getNumber());	
+			outside.add(characters.get(i).getNumber());	
 		}
 		System.out.println(outside.size());
 
 	}
 
 	public void display(){
-		for (int i = 0; i < this.inside.size(); i++) {			
-			this.characters.get(i).setDimension(defaultX + (i%3)*30 , defaultY + (i/3)*30);	
-			this.characters.get(i).display();
+		for (int i = 0; i < this.outside.size(); i++) {			
+			this.characters.get(this.outside.get(i)).setDimension(defaultX + (i%row)*space , defaultY + (i/row)*space);	
+			this.characters.get(this.outside.get(i)).display();
 		}
-		for (int i = 0; i < this.outside.size(); i++) {	
+		for (int i = 0; i < this.inside.size(); i++) {	
 			double degree =  360;
-			degree = degree/this.outside.size()*i;
+			degree = degree/ (double)this.inside.size()*(double) i;
+			System.out.println(Math.cos( Math.toRadians( degree ) )*circleRadius);
 			int x = circleCenterX + (int) Math.cos( Math.toRadians( degree ) )*circleRadius;
 			int y = circleCenterY + (int) Math.sin( Math.toRadians( degree ) )*circleRadius;
-			this.characters.get(i).setDimension(x , y);	
-			this.characters.get(i).display();
+			System.out.println(x);
+
+			this.characters.get(this.inside.get(i)).setDimension(x , y);	
+			this.characters.get(this.inside.get(i)).display();
 		}
 		
 	}
