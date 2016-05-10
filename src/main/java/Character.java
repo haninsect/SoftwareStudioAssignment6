@@ -14,14 +14,15 @@ public class Character {
 	private int number;
 	private String color;
 	private String name;
-	public int[] connect;
-	private int size;
+	
+	public int[] connect; // To store the circle connected to it.
+	private int size;//The number of characters in this episode.
 	private int x;
 	private int y;
 	private boolean isdragged = false;
 	private int hexColor ;
 	private int listnumber;
-	private boolean isinside;
+	private boolean isinside; // Is inside the big circle or not
 	
 	public Character(MainApplet parent, int n, int s, String name, String c){
 		this.number = n;
@@ -37,7 +38,7 @@ public class Character {
 	}
 
 	public void display(){	
-		if(this.isDragged()){
+		if(this.isDragged()){ // If user press the circle, the isDragged will be set true. And in this method allow circle to be dragged around.
 			this.parent.stroke(hexColor);
 			this.parent.fill(hexColor);
 			parent.ellipse(parent.mouseX, parent.mouseY, Radius, Radius);
@@ -86,14 +87,14 @@ public class Character {
 	public void setDragged(boolean dragged){
 		isdragged = dragged;
 	}
-	public boolean mousePressInside(int mouseX, int mouseY){
+	public boolean mousePressInside(int mouseX, int mouseY){ // To detect whether use press the circle or not.
 		if((mouseX-this.x)*(mouseX-this.x) + (mouseY-this.y)*(mouseY-this.y)<= (Radius/2)*(Radius/2) ) return true;
 		else return false;
 	}
 	public void setListNumber(int n){
 		this.listnumber = n;
 	}
-	public int getListNumber(){
+	public int getListNumber(){ // get the number in the inside arraylist or outside arraylist
 		return this.listnumber;
 	}
 	public void setInside(boolean ins){

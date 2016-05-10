@@ -14,19 +14,20 @@ import processing.data.JSONObject;
 */
 @SuppressWarnings("serial")
 public class MainApplet extends PApplet{
+	private final static int width = 1200, height = 650;
+	private final static int circleRadius = 500, circleCenterX = 700, circleCenterY = 300;
 	private String path = "main/resources/";
 	private String file_part1 = "starwars-episode-";
 	private String file_part2 = "-interactions.json";
-	private final static int circleRadius = 500, circleCenterX = 700, circleCenterY = 300;
 	JSONObject data;
 	JSONArray nodes, links;
 	private ArrayList<Character> characters;
 	private Network network;
-	private final static int width = 1200, height = 650;
 	private ControlP5 cp5;
 	
 	public void setup() {	
 		size(width, height);
+		//Add button.
 		cp5 = new ControlP5(this);
 		cp5.addButton("buttonA")
 			.setLabel("ADD ALL")
@@ -37,8 +38,9 @@ public class MainApplet extends PApplet{
 			.setLabel("CLEAR")
 			.setPosition(width-150, 2*height/10)
 			.setSize(100, 40);
-		characters = new ArrayList<Character>();		
-		loadData(1);
+		//Create cycle.
+		characters = new ArrayList<Character>();	
+		loadData(1);		
 		smooth();
 		network = new Network(this, this.characters);
 		network.display();
@@ -47,30 +49,30 @@ public class MainApplet extends PApplet{
 
 	public void draw() {
 		this.clear();	
-		this.background(225);		
+		this.background(255);		
 		this.fill(255);
-		this.stroke(255);
+		this.stroke(0);
 		ellipse(circleCenterX, circleCenterY, circleRadius, circleRadius);		
 		network.display();
 		
 	}
 	public void buttonA(){ //ADD ALL
-		System.out.println("??");
-		for(int i = 0; i < this.network.getOutsideSize(); i++){			
-			this.network.moveToInside(i);			
-		}
-		
+		int size = this.network.getOutsideSize();
+		for(int i = 0; i < size; i++){			
+			this.network.moveToInside(0);			
+		}		
 	}
 	public void buttonB(){ // CLEAR
-		for(int i = 0; i < this.network.getInsideSize(); i++){			
-			this.network.moveToOutside(i);			
+		int size = this.network.getInsideSize();
+		for(int i = 0; i < size; i++){			
+			this.network.moveToOutside(0);			
 		}
 	}
 	
 	public void mousePressed() {
 		for (int i = 0; i < this.characters.size(); i++) {	
 			if(this.characters.get(i).mousePressInside(mouseX, mouseY)) {
-				this.characters.get(i).setDragged(!this.characters.get(i).isDragged());
+				this.characters.get(i).setDragged(!this.characters.get(i).isDragged()); //Reverse cycle's move state.
 				if(this.characters.get(i).isDragged() == false){ // Is realeased.
 					//Pull out the cycle
 					if((mouseX-circleCenterX)*(mouseX-circleCenterX) + (mouseY-circleCenterY)*(mouseY-circleCenterY) > (circleRadius/2)*(circleRadius/2) ){
@@ -82,8 +84,8 @@ public class MainApplet extends PApplet{
 					}
 					//Put in the cycle
 					else if((mouseX-circleCenterX)*(mouseX-circleCenterX) + (mouseY-circleCenterY)*(mouseY-circleCenterY) <= (circleRadius/2)*(circleRadius/2) ){						
-						if(!this.characters.get(i).isInside()) {// > 0 means it is inside the cycle
-							System.out.println(this.characters.get(i).getListNumber());
+						if(!this.characters.get(i).isInside()) {
+							System.out.println("Put in");
 							this.network.moveToInside(this.characters.get(i).getListNumber());
 						}
 					
@@ -148,15 +150,6 @@ public class MainApplet extends PApplet{
 			int weight = link.getInt("value");
 			characters.get(source).setConnected(target, weight);
 			characters.get(target).setConnected(source, weight);
-			//System.out.println(characters.get(source).isConnected(target));
-		}
-		
+		}		
 	}
-
-	public void controlEvent(ControlEvent theEvent) {
-		System.out.println("??");
-		}
-	
-	
-
 }

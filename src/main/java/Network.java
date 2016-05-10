@@ -18,14 +18,15 @@ public class Network {
 	private final static int circleRadius = 500, circleCenterX = 700, circleCenterY = 300;
 	private PApplet parent;
 	private ArrayList<Character> characters;
-	private ArrayList<Integer> inside;
-	private ArrayList<Integer> outside;
+	private ArrayList<Integer> inside; //The circle inside the Big Circle.
+	private ArrayList<Integer> outside; //
 
 	public Network(PApplet parent, ArrayList<Character> c){
 		this.characters = c;
 		this.parent = parent;
 		this.inside = new ArrayList<Integer>();
 		this.outside = new ArrayList<Integer>();
+		//Put all the circle to outside position
 		for (int i = 0; i < characters.size(); i++) {
 			outside.add(characters.get(i).getNumber());	
 			characters.get(i).setListNumber(i); 
@@ -34,10 +35,12 @@ public class Network {
 	}
 
 	public void display(){
+		//Draw the outside circle.
 		for (int i = 0; i < this.outside.size(); i++) {			
 			this.characters.get(this.outside.get(i)).setDimension(defaultX + (i%row)*space , defaultY + (i/row)*space);	
 			this.characters.get(this.outside.get(i)).display();
 		}
+		//Draw the inside circle.
 		for (int i = 0; i < this.inside.size(); i++) {	
 			double degree =  360;
 			degree = degree/ (double)this.inside.size()*(double) i;
@@ -45,10 +48,10 @@ public class Network {
 			int y = circleCenterY + (int) (Math.sin( Math.toRadians( degree ) )*circleRadius/2);
 			this.characters.get(this.inside.get(i)).setDimension(x , y);	
 			this.characters.get(this.inside.get(i)).display();
-		}	
+		}
+		//Draw the connected line
 		for (int i = 0; i < this.inside.size(); i++) {	
 			for (int j = i+1; j < this.inside.size(); j++) {
-				System.out.println(this.characters.get(this.inside.get(i)).connect[this.inside.get(j)]);
 				int x1 = this.characters.get(this.inside.get(i)).getX(),
 					y1 = this.characters.get(this.inside.get(i)).getY(),
 					x2 = this.characters.get(this.inside.get(j)).getX(),
@@ -62,11 +65,12 @@ public class Network {
 				}				
 			}
 		}
+		// Redraw the inside circle, so that they will be on the top of line.
 		for (int i = 0; i < this.inside.size(); i++) {				
 			this.characters.get(this.inside.get(i)).display();
 		}
 	}
-	public void moveToInside(int n){
+	public void moveToInside(int n){ // Move the nth circle inside to the outside.
 		characters.get(outside.get(n)).setInside(!this.characters.get(outside.get(n)).isInside());
 		characters.get(outside.get(n)).setListNumber(inside.size());
 		inside.add(outside.get(n));

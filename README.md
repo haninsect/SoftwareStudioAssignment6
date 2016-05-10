@@ -1,20 +1,14 @@
-# Software Studio Assignment 6
+101022133 黃廷耀 資工大三
 
-## Notes
-+ You will have to import the libraries on your own. All the libraries are provided on iLMS.
-+ Even you followed the design TA shown in the video, you still have to explain the control of the program in the next section.
 
-## Explanation of the Design
-Explain your design in this section.  
-Example:
-### Operation
-+ Clicking on the button "Add All": users can add all the characters into network to be analyzed.
-+ Clicking on the button "Clear": users can remove all the characters from network.
-+ Hovering on the character: the name of the character will be revealed.
-+ By dragging the little circle and drop it in the big circle, the character will be added to the network.
-+ By pressing key 1~7 on the keyboard, users can switch between episodes.
-+ ...etc.
+在MainApplet中，讀取Jason檔的訊息，順便建立各個Character，
+將建立好的Character傳遞給Network，並等待滑鼠的event被triggered。
 
-### Visualization
-+ The width of each link is visualized based on the value of the link.
-+ ...etc.
+在Network中，另外建立兩個ArrayList，分別用來儲存在大圓內和大圓外的Character，
+預設為全部先在圓外，而隨者使用者的操作會由MainApplet呼叫其他這裡method，
+將Character從原本所在的ArrayList(Inside or Outside) 移動到另一個，
+之後再將不同ArrayList的Character分別畫在相對應的位置。
+此外由於Character有宣告一個int array來記錄是否與其他人相連，
+因此只要掃過Inside的ArrayList就可以根據資料畫出Connect Line了。
+
+此外，我們的設計是當滑鼠點擊Character，不用按壓著，小圓就會自動跟著滑鼠移動，在按一次才會放開。
