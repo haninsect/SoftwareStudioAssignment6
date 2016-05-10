@@ -26,6 +26,7 @@ public class MainApplet extends PApplet{
 	private ControlP5 cp5;
 	
 	public void setup() {	
+		size(width, height);
 		cp5 = new ControlP5(this);
 		cp5.addButton("buttonA")
 			.setLabel("ADD ALL")
@@ -38,7 +39,6 @@ public class MainApplet extends PApplet{
 			.setSize(100, 40);
 		characters = new ArrayList<Character>();		
 		loadData(1);
-		size(width, height);
 		smooth();
 		network = new Network(this, this.characters);
 		network.display();
