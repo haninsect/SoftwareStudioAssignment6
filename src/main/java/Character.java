@@ -7,7 +7,9 @@ import processing.core.PApplet;
 * You will need to declare other variables depending on your implementation.
 */
 public class Character {
-	
+	private final static int Radius = 20;
+	private final static int defaultX = 50;
+	private final static int defaultY = 50;
 	private MainApplet parent;
 	private int number;
 	private String color;
@@ -16,7 +18,9 @@ public class Character {
 	int size;
 	int x;
 	int y;
-
+	boolean isdragged = false;
+	
+	
 	public Character(MainApplet parent, int n, int s, String name, String c){
 		this.number = n;
 		this.color = c;
@@ -25,12 +29,17 @@ public class Character {
 		for(int i = 0; i < s; i++) this.connect[i] = 0;
 		this.size = s;
 		this.parent = parent;
-		this.setDimension(0, 0);
+		this.setDimension(defaultX, defaultY);
 	}
 
 	public void display(){
-
+		if(this.isDragged()){
+			parent.ellipse(parent.mouseX, parent.mouseY, Radius, Radius);
+		}
+		else parent.ellipse(x, y, Radius, Radius);
 	}
+	
+	
 	public void setConnected(int n, int w){
 		this.connect[n] = w;
 	}
@@ -52,5 +61,17 @@ public class Character {
 	public String getName(){
 		return name;
 	}
-	
+	public int getNumber(){
+		return number;
+	}
+	public boolean isDragged(){
+		return isdragged;
+	}
+	public void setDragged(boolean dragged){
+		isdragged = dragged;
+	}
+	public boolean mousePressInside(int mouseX, int mouseY){
+		if(mouseX*mouseX + mouseY*mouseY <= x*x + y*y ) return true;
+		else return false;
+	}
 }

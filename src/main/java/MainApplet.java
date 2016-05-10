@@ -15,35 +15,41 @@ public class MainApplet extends PApplet{
 	private String path = "main/resources/";
 	private String file_part1 = "starwars-episode-";
 	private String file_part2 = "-interactions.json";
-	int version;
-	private final static int circleRadius=200,circleCenterX=700,circleCenterY=300;
+	int episode;
+	private final static int circleRadius = 400, circleCenterX = 700, circleCenterY = 300;
 	JSONObject data;
 	JSONArray nodes, links;
 	private ArrayList<Character> characters;
-	
+	private Network network;
 	private final static int width = 1200, height = 650;
 	
 	public void setup() {		
-		version = 1;
-		characters = new ArrayList<Character>();
+		episode = 1;
+		characters = new ArrayList<Character>();		
 		loadData(1);
 		size(width, height);
 		smooth();
+		network = new Network(this, this.characters);
 		
 		
 	}
 
 	public void draw() {
-		ellipse(circleCenterX, circleCenterY, 2*circleRadius, 2*circleRadius);
-		/*for (int i = 0; i < characters.size(); i++) {
-			System.out.println(this.characters.get(i).getName());
-		}*/
+		ellipse(circleCenterX, circleCenterY, circleRadius, circleRadius);
+		network.display();
 	}
 	
-	
+	public void mousePressed() {
+		for (int i = 0; i < this.characters.size(); i++) {	
+			if(this.characters.get(i).mousePressInside(mouseX, mouseY)) {
+				this.characters.get(i).setDragged(!this.characters.get(i).isdragged);
+			}			
+		}
+	}
 	public void keyPressed() {
 		if(this.key == '1'){
 			this.loadData(1);
+			System.out.println(1);
 		}
 		else if(this.key == '2'){
 			this.loadData(2);
@@ -65,9 +71,9 @@ public class MainApplet extends PApplet{
 		}
 	}
 	
-	private void loadData(int version){
+	private void loadData(int episode){
 		
-		data = loadJSONObject(path + file_part1 + version + file_part2);
+		data = loadJSONObject(path + file_part1 + episode + file_part2);
 		nodes = data.getJSONArray("nodes");
 		links = data.getJSONArray("links");
 		for (int i = 0; i < nodes.size(); i++) {
