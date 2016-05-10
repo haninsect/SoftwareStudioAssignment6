@@ -15,7 +15,6 @@ public class MainApplet extends PApplet{
 	private String path = "main/resources/";
 	private String file_part1 = "starwars-episode-";
 	private String file_part2 = "-interactions.json";
-	int episode;
 	private final static int circleRadius = 400, circleCenterX = 700, circleCenterY = 300;
 	JSONObject data;
 	JSONArray nodes, links;
@@ -24,50 +23,67 @@ public class MainApplet extends PApplet{
 	private final static int width = 1200, height = 650;
 	
 	public void setup() {		
-		episode = 1;
 		characters = new ArrayList<Character>();		
 		loadData(1);
 		size(width, height);
 		smooth();
 		network = new Network(this, this.characters);
-		
+		network.display();
 		
 	}
 
 	public void draw() {
-		ellipse(circleCenterX, circleCenterY, circleRadius, circleRadius);
+		this.clear();
+		background(200);
+		ellipse(circleCenterX, circleCenterY, circleRadius, circleRadius);		
 		network.display();
+		
+		
 	}
 	
 	public void mousePressed() {
 		for (int i = 0; i < this.characters.size(); i++) {	
 			if(this.characters.get(i).mousePressInside(mouseX, mouseY)) {
 				this.characters.get(i).setDragged(!this.characters.get(i).isdragged);
+				break;
 			}			
 		}
 	}
 	public void keyPressed() {
 		if(this.key == '1'){
+			characters =new ArrayList<Character>();	
 			this.loadData(1);
-			System.out.println(1);
+			network = new Network(this, this.characters);
 		}
 		else if(this.key == '2'){
+			characters =new ArrayList<Character>();	
 			this.loadData(2);
+			network = new Network(this, this.characters);
 		}
 		else if(this.key == '3'){
+			characters =new ArrayList<Character>();	
 			this.loadData(3);
+			network = new Network(this, this.characters);			
 		}
 		else if(this.key == '4'){
+			characters =new ArrayList<Character>();	
 			this.loadData(4);
+			network = new Network(this, this.characters);
 		}
 		else if(this.key == '5'){
+			characters =new ArrayList<Character>();	
 			this.loadData(5);
+			network = new Network(this, this.characters);
 		}
 		else if(this.key == '6'){
+			characters =new ArrayList<Character>();	
 			this.loadData(6);
+			network = new Network(this, this.characters);
 		}
 		else if(this.key == '7'){
+			characters =new ArrayList<Character>();	
 			this.loadData(7);
+			network = new Network(this, this.characters);
 		}
 	}
 	
