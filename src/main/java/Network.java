@@ -54,7 +54,7 @@ public class Network {
 				if(this.characters.get(this.inside.get(i)).isConnected(this.inside.get(j))){
 					
 
-					this.parent.curve(25, 25, 50, 50, 75, 75, 100, 100);
+					this.parent.noFill();
 					this.parent.curve(x1*2 - circleCenterX , y1*2 - circleCenterY, 
 							 x1, x2, y1, y2,							
 							x2*2 -circleCenterX, y2*2 - circleCenterY);
