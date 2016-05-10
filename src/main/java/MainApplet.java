@@ -31,6 +31,7 @@ public class MainApplet extends PApplet{
 			.setLabel("ADD ALL")
 			.setPosition(width-150, height/10)
 			.setSize(100, 40);
+		
 		cp5.addButton("buttonB")
 			.setLabel("CLEAR")
 			.setPosition(width-150, 2*height/10)
@@ -48,6 +49,7 @@ public class MainApplet extends PApplet{
 		this.clear();	
 		this.background(225);		
 		this.fill(255);
+		this.stroke(255);
 		ellipse(circleCenterX, circleCenterY, circleRadius, circleRadius);		
 		network.display();
 		
@@ -65,7 +67,7 @@ public class MainApplet extends PApplet{
 		}
 	}
 	
-	/*public void mousePressed() {
+	public void mousePressed() {
 		for (int i = 0; i < this.characters.size(); i++) {	
 			if(this.characters.get(i).mousePressInside(mouseX, mouseY)) {
 				this.characters.get(i).setDragged(!this.characters.get(i).isDragged());
@@ -80,7 +82,7 @@ public class MainApplet extends PApplet{
 					}
 					//Put in the cycle
 					else if((mouseX-circleCenterX)*(mouseX-circleCenterX) + (mouseY-circleCenterY)*(mouseY-circleCenterY) <= (circleRadius/2)*(circleRadius/2) ){						
-						if(this.characters.get(i).getListNumber() > 0) {// > 0 means it is inside the cycle
+						if(!this.characters.get(i).isInside()) {// > 0 means it is inside the cycle
 							System.out.println(this.characters.get(i).getListNumber());
 							this.network.moveToInside(this.characters.get(i).getListNumber());
 						}
@@ -89,7 +91,7 @@ public class MainApplet extends PApplet{
 				}
 			}			
 		}
-	}*/
+	}
 	public void keyPressed() {
 		if(this.key == '1'){
 			characters =new ArrayList<Character>();	
@@ -145,6 +147,8 @@ public class MainApplet extends PApplet{
 			int target = link.getInt("target");
 			int weight = link.getInt("value");
 			characters.get(source).setConnected(target, weight);
+			characters.get(target).setConnected(source, weight);
+			//System.out.println(characters.get(source).isConnected(target));
 		}
 		
 	}

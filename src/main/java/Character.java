@@ -38,13 +38,19 @@ public class Character {
 
 	public void display(){	
 		if(this.isDragged()){
+			this.parent.stroke(hexColor);
 			this.parent.fill(hexColor);
 			parent.ellipse(parent.mouseX, parent.mouseY, Radius, Radius);
 			this.x = parent.mouseX;
-			this.y = parent.mouseY;
+			this.y = parent.mouseY;		
+			this.parent.stroke(hexColor);
+			this.parent.rect(x-Radius+5, y-10-Radius/2, this.parent.textWidth(name)+15, 20,20);		
+			this.parent.fill(255,255,255);
+			this.parent.text(name, x-Radius+10, y-Radius/2);
 		}
 		else {
 			this.parent.fill(hexColor);
+			this.parent.stroke(hexColor);
 			parent.ellipse(x, y, Radius, Radius);
 		}
 	}

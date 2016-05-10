@@ -28,7 +28,8 @@ public class Network {
 		this.outside = new ArrayList<Integer>();
 		for (int i = 0; i < characters.size(); i++) {
 			outside.add(characters.get(i).getNumber());	
-			characters.get(i).setListNumber(i); //< 0 means it is outside the cycle
+			characters.get(i).setListNumber(i); 
+			characters.get(i).setInside(false);
 		}
 	}
 
@@ -47,21 +48,22 @@ public class Network {
 		}	
 		for (int i = 0; i < this.inside.size(); i++) {	
 			for (int j = i+1; j < this.inside.size(); j++) {
-				System.out.println(this.characters.get(this.inside.get(i)).connect[j]);
+				System.out.println(this.characters.get(this.inside.get(i)).connect[this.inside.get(j)]);
 				int x1 = this.characters.get(this.inside.get(i)).getX(),
 					y1 = this.characters.get(this.inside.get(i)).getY(),
 					x2 = this.characters.get(this.inside.get(j)).getX(),
 					y2 = this.characters.get(this.inside.get(j)).getY();
-				//if(this.characters.get(this.inside.get(i)).isConnected(this.inside.get(j))){
-					
-
+				if(this.characters.get(this.inside.get(i)).isConnected(this.inside.get(j))){	
 					this.parent.noFill();
+					this.parent.stroke(0);
 					this.parent.curve(x1*2 - circleCenterX , y1*2 - circleCenterY, 
 							 x1, y1, x2, y2,							
 							x2*2 -circleCenterX, y2*2 - circleCenterY);
-				//}
-				
+				}				
 			}
+		}
+		for (int i = 0; i < this.inside.size(); i++) {				
+			this.characters.get(this.inside.get(i)).display();
 		}
 	}
 	public void moveToInside(int n){
