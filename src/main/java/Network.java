@@ -27,7 +27,7 @@ public class Network {
 		this.inside = new ArrayList<Integer>();
 		this.outside = new ArrayList<Integer>();
 		for (int i = 0; i < characters.size(); i++) {
-			outside.add(characters.get(i).getNumber());	
+			inside.add(characters.get(i).getNumber());	
 		}
 		System.out.println(outside.size());
 
@@ -41,10 +41,8 @@ public class Network {
 		for (int i = 0; i < this.inside.size(); i++) {	
 			double degree =  360;
 			degree = degree/ (double)this.inside.size()*(double) i;
-			System.out.println(Math.cos( Math.toRadians( degree ) )*circleRadius);
-			int x = circleCenterX + (int) Math.cos( Math.toRadians( degree ) )*circleRadius;
-			int y = circleCenterY + (int) Math.sin( Math.toRadians( degree ) )*circleRadius;
-			System.out.println(x);
+			int x = circleCenterX + (int) (Math.cos( Math.toRadians( degree ) )*circleRadius);
+			int y = circleCenterY + (int) (Math.sin( Math.toRadians( degree ) )*circleRadius);
 
 			this.characters.get(this.inside.get(i)).setDimension(x , y);	
 			this.characters.get(this.inside.get(i)).display();
