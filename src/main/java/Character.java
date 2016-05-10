@@ -7,7 +7,7 @@ import processing.core.PApplet;
 * You will need to declare other variables depending on your implementation.
 */
 public class Character {
-	private final static int Radius = 20;
+	private final static int Radius = 25;
 	private final static int defaultX = 50;
 	private final static int defaultY = 50;
 	private MainApplet parent;
