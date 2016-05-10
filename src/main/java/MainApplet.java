@@ -15,7 +15,7 @@ public class MainApplet extends PApplet{
 	private String path = "main/resources/";
 	private String file_part1 = "starwars-episode-";
 	private String file_part2 = "-interactions.json";
-	private final static int circleRadius = 400, circleCenterX = 700, circleCenterY = 300;
+	private final static int circleRadius = 500, circleCenterX = 700, circleCenterY = 300;
 	JSONObject data;
 	JSONArray nodes, links;
 	private ArrayList<Character> characters;
