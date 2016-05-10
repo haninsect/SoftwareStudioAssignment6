@@ -14,7 +14,7 @@ public class Character {
 	private int number;
 	private String color;
 	private String name;
-	private int[] connect;
+	public int[] connect;
 	private int size;
 	private int x;
 	private int y;

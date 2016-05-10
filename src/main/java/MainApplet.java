@@ -52,8 +52,20 @@ public class MainApplet extends PApplet{
 		network.display();
 		
 	}
+	public void buttonA(){ //ADD ALL
+		System.out.println("??");
+		for(int i = 0; i < this.network.getOutsideSize(); i++){			
+			this.network.moveToInside(i);			
+		}
+		
+	}
+	public void buttonB(){ // CLEAR
+		for(int i = 0; i < this.network.getInsideSize(); i++){			
+			this.network.moveToOutside(i);			
+		}
+	}
 	
-	public void mousePressed() {
+	/*public void mousePressed() {
 		for (int i = 0; i < this.characters.size(); i++) {	
 			if(this.characters.get(i).mousePressInside(mouseX, mouseY)) {
 				this.characters.get(i).setDragged(!this.characters.get(i).isDragged());
@@ -77,7 +89,7 @@ public class MainApplet extends PApplet{
 				}
 			}			
 		}
-	}
+	}*/
 	public void keyPressed() {
 		if(this.key == '1'){
 			characters =new ArrayList<Character>();	
@@ -136,18 +148,7 @@ public class MainApplet extends PApplet{
 		}
 		
 	}
-	public void buttonA(){ //ADD ALL
-		System.out.println("??");
-		for(int i = 0; i < this.network.getOutsideSize(); i++){			
-			this.network.moveToInside(i);			
-		}
-		
-	}
-	public void buttonB(){ // CLEAR
-		for(int i = 0; i < this.network.getInsideSize(); i++){			
-			this.network.moveToOutside(i);			
-		}
-	}
+
 	public void controlEvent(ControlEvent theEvent) {
 		System.out.println("??");
 		}

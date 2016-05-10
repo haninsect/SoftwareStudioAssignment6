@@ -47,18 +47,19 @@ public class Network {
 		}	
 		for (int i = 0; i < this.inside.size(); i++) {	
 			for (int j = i+1; j < this.inside.size(); j++) {
+				System.out.println(this.characters.get(this.inside.get(i)).connect[j]);
 				int x1 = this.characters.get(this.inside.get(i)).getX(),
 					y1 = this.characters.get(this.inside.get(i)).getY(),
 					x2 = this.characters.get(this.inside.get(j)).getX(),
-					y2 =  this.characters.get(this.inside.get(j)).getY();
-				if(this.characters.get(this.inside.get(i)).isConnected(this.inside.get(j))){
+					y2 = this.characters.get(this.inside.get(j)).getY();
+				//if(this.characters.get(this.inside.get(i)).isConnected(this.inside.get(j))){
 					
 
 					this.parent.noFill();
 					this.parent.curve(x1*2 - circleCenterX , y1*2 - circleCenterY, 
-							 x1, x2, y1, y2,							
+							 x1, y1, x2, y2,							
 							x2*2 -circleCenterX, y2*2 - circleCenterY);
-				}
+				//}
 				
 			}
 		}
