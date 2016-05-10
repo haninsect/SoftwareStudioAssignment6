@@ -12,10 +12,10 @@ import processing.core.PApplet;
 */
 public class Network {
 	private final static int defaultX = 50;
-	private final static int row = 4;
-	private final static int space = 30;
+	private final static int row = 3;
+	private final static int space = 45;
 	private final static int defaultY = 50;
-	private final static int circleRadius = 250, circleCenterX = 700, circleCenterY = 300;
+	private final static int circleRadius = 500, circleCenterX = 700, circleCenterY = 300;
 	private PApplet parent;
 	private ArrayList<Character> characters;
 	private ArrayList<Integer> inside;
@@ -27,7 +27,7 @@ public class Network {
 		this.inside = new ArrayList<Integer>();
 		this.outside = new ArrayList<Integer>();
 		for (int i = 0; i < characters.size(); i++) {
-			inside.add(characters.get(i).getNumber());	
+			outside.add(characters.get(i).getNumber());	
 		}
 	}
 

@@ -79,7 +79,7 @@ public class Character {
 		isdragged = dragged;
 	}
 	public boolean mousePressInside(int mouseX, int mouseY){
-		if((mouseX-this.x)*(mouseX-this.x) + (mouseY-this.y)*(mouseY-this.y)<= Radius*Radius ) return true;
+		if((mouseX-this.x)*(mouseX-this.x) + (mouseY-this.y)*(mouseY-this.y)<= (Radius/2)*(Radius/2) ) return true;
 		else return false;
 	}
 }

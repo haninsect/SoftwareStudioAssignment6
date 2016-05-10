@@ -34,8 +34,8 @@ public class MainApplet extends PApplet{
 
 	public void draw() {
 		this.clear();		
-		this.background(200);		
-		this.fill(225);
+		this.background(225);		
+		this.fill(255);
 		ellipse(circleCenterX, circleCenterY, circleRadius, circleRadius);		
 		network.display();
 		
