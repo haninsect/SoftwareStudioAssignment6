@@ -25,7 +25,7 @@ public class Character {
 		for(int i = 0; i < s; i++) this.connect[i] = 0;
 		this.size = s;
 		this.parent = parent;
-		
+		this.setDimension(0, 0);
 	}
 
 	public void display(){
