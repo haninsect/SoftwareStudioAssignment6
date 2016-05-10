@@ -35,6 +35,8 @@ public class Character {
 	public void display(){
 		if(this.isDragged()){
 			parent.ellipse(parent.mouseX, parent.mouseY, Radius, Radius);
+			this.x = parent.mouseX;
+			this.y = parent.mouseY;
 		}
 		else parent.ellipse(x, y, Radius, Radius);
 	}
@@ -71,7 +73,7 @@ public class Character {
 		isdragged = dragged;
 	}
 	public boolean mousePressInside(int mouseX, int mouseY){
-		if(mouseX*mouseX + mouseY*mouseY <= x*x + y*y ) return true;
+		if((mouseX-this.x)*(mouseX-this.x) + (mouseY-this.y)*(mouseY-this.y)<= Radius*Radius ) return true;
 		else return false;
 	}
 }
