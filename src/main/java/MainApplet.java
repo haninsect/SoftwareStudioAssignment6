@@ -2,6 +2,8 @@ package main.java;
 
 import java.util.ArrayList;
 
+import controlP5.ControlEvent;
+import controlP5.ControlP5;
 import processing.core.PApplet;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
@@ -21,8 +23,18 @@ public class MainApplet extends PApplet{
 	private ArrayList<Character> characters;
 	private Network network;
 	private final static int width = 1200, height = 650;
+	private ControlP5 cp5;
 	
-	public void setup() {		
+	public void setup() {	
+		cp5 = new ControlP5(this);
+		cp5.addButton("buttonA")
+			.setLabel("ADD ALL")
+			.setPosition(width-150, height/10)
+			.setSize(100, 40);
+		cp5.addButton("buttonB")
+			.setLabel("CLEAR")
+			.setPosition(width-150, 2*height/10)
+			.setSize(100, 40);
 		characters = new ArrayList<Character>();		
 		loadData(1);
 		size(width, height);
@@ -33,7 +45,7 @@ public class MainApplet extends PApplet{
 	}
 
 	public void draw() {
-		this.clear();		
+		this.clear();	
 		this.background(225);		
 		this.fill(255);
 		ellipse(circleCenterX, circleCenterY, circleRadius, circleRadius);		
@@ -44,11 +56,23 @@ public class MainApplet extends PApplet{
 	public void mousePressed() {
 		for (int i = 0; i < this.characters.size(); i++) {	
 			if(this.characters.get(i).mousePressInside(mouseX, mouseY)) {
-				this.characters.get(i).setDragged(!this.characters.get(i).isdragged);
-				if(this.characters.get(i).isdragged == false){ // Is realeased.
-					//Inside the cycle
-					if((mouseX-circleCenterX)*(mouseX-circleCenterX) + (mouseY-circleCenterY)*(mouseY-circleCenterY) <= circleRadius*circleRadius ){
+				this.characters.get(i).setDragged(!this.characters.get(i).isDragged());
+				if(this.characters.get(i).isDragged() == false){ // Is realeased.
+					//Pull out the cycle
+					if((mouseX-circleCenterX)*(mouseX-circleCenterX) + (mouseY-circleCenterY)*(mouseY-circleCenterY) > (circleRadius/2)*(circleRadius/2) ){
+						if(this.characters.get(i).isInside()) {
+							this.network.moveToOutside(this.characters.get(i).getListNumber());
+							System.out.println("Pull out");
+						}
 						
+					}
+					//Put in the cycle
+					else if((mouseX-circleCenterX)*(mouseX-circleCenterX) + (mouseY-circleCenterY)*(mouseY-circleCenterY) <= (circleRadius/2)*(circleRadius/2) ){						
+						if(this.characters.get(i).getListNumber() > 0) {// > 0 means it is inside the cycle
+							System.out.println(this.characters.get(i).getListNumber());
+							this.network.moveToInside(this.characters.get(i).getListNumber());
+						}
+					
 					}
 				}
 			}			
@@ -112,6 +136,22 @@ public class MainApplet extends PApplet{
 		}
 		
 	}
+	public void buttonA(){ //ADD ALL
+		System.out.println("??");
+		for(int i = 0; i < this.network.getOutsideSize(); i++){			
+			this.network.moveToInside(i);			
+		}
+		
+	}
+	public void buttonB(){ // CLEAR
+		for(int i = 0; i < this.network.getInsideSize(); i++){			
+			this.network.moveToOutside(i);			
+		}
+	}
+	public void controlEvent(ControlEvent theEvent) {
+		System.out.println("??");
+		}
+	
 	
 
 }

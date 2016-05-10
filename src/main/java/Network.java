@@ -28,6 +28,7 @@ public class Network {
 		this.outside = new ArrayList<Integer>();
 		for (int i = 0; i < characters.size(); i++) {
 			outside.add(characters.get(i).getNumber());	
+			characters.get(i).setListNumber(i); //< 0 means it is outside the cycle
 		}
 	}
 
@@ -39,16 +40,52 @@ public class Network {
 		for (int i = 0; i < this.inside.size(); i++) {	
 			double degree =  360;
 			degree = degree/ (double)this.inside.size()*(double) i;
-			int x = circleCenterX + (int) (Math.cos( Math.toRadians( degree ) )*circleRadius);
-			int y = circleCenterY + (int) (Math.sin( Math.toRadians( degree ) )*circleRadius);
+			int x = circleCenterX + (int) (Math.cos( Math.toRadians( degree ) )*circleRadius/2);
+			int y = circleCenterY + (int) (Math.sin( Math.toRadians( degree ) )*circleRadius/2);
 			this.characters.get(this.inside.get(i)).setDimension(x , y);	
 			this.characters.get(this.inside.get(i)).display();
-		}		
+		}	
+		for (int i = 0; i < this.inside.size(); i++) {	
+			for (int j = i+1; j < this.inside.size(); j++) {
+				int x1 = this.characters.get(this.inside.get(i)).getX(),
+					y1 = this.characters.get(this.inside.get(i)).getY(),
+					x2 = this.characters.get(this.inside.get(j)).getX(),
+					y2 =  this.characters.get(this.inside.get(j)).getY();
+				if(this.characters.get(this.inside.get(i)).isConnected(this.inside.get(j))){
+					
+
+					this.parent.curve(25, 25, 50, 50, 75, 75, 100, 100);
+					this.parent.curve(x1*2 - circleCenterX , y1*2 - circleCenterY, 
+							 x1, x2, y1, y2,							
+							x2*2 -circleCenterX, y2*2 - circleCenterY);
+				}
+				
+			}
+		}
 	}
 	public void moveToInside(int n){
+		characters.get(outside.get(n)).setInside(!this.characters.get(outside.get(n)).isInside());
+		characters.get(outside.get(n)).setListNumber(inside.size());
+		inside.add(outside.get(n));
+		for(int i = n+1; i < outside.size(); i++){
+			characters.get(outside.get(i)).setListNumber(characters.get(outside.get(i)).getListNumber()-1);
+		}
 		outside.remove(n);
+		
 	}
 	public void moveToOutside(int n){
-		
+		characters.get(inside.get(n)).setInside(!this.characters.get(inside.get(n)).isInside());
+		characters.get(inside.get(n)).setListNumber(outside.size());
+		outside.add(inside.get(n));
+		for(int i = n+1; i < inside.size(); i++){
+			characters.get(inside.get(i)).setListNumber(characters.get(inside.get(i)).getListNumber()-1);
+		}
+		inside.remove(n);
+	}
+	public int getOutsideSize(){
+		return this.outside.size();
+	}
+	public int getInsideSize(){
+		return this.inside.size();
 	}
 }

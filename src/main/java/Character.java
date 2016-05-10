@@ -14,12 +14,14 @@ public class Character {
 	private int number;
 	private String color;
 	private String name;
-	int[] connect;
-	int size;
-	int x;
-	int y;
-	boolean isdragged = false;
-	int hexColor ;
+	private int[] connect;
+	private int size;
+	private int x;
+	private int y;
+	private boolean isdragged = false;
+	private int hexColor ;
+	private int listnumber;
+	private boolean isinside;
 	
 	public Character(MainApplet parent, int n, int s, String name, String c){
 		this.number = n;
@@ -81,5 +83,17 @@ public class Character {
 	public boolean mousePressInside(int mouseX, int mouseY){
 		if((mouseX-this.x)*(mouseX-this.x) + (mouseY-this.y)*(mouseY-this.y)<= (Radius/2)*(Radius/2) ) return true;
 		else return false;
+	}
+	public void setListNumber(int n){
+		this.listnumber = n;
+	}
+	public int getListNumber(){
+		return this.listnumber;
+	}
+	public void setInside(boolean ins){
+		this.isinside = ins;
+	}
+	public boolean isInside(){
+		return isinside;
 	}
 }
